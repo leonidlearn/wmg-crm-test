@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WMG CRM test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EEF1F5;--panel:#fff;--ink:#13203A;--muted:#5A6577;--line:#D9DEE6;--blue:#1D3FAA;--red:#B8322A;--red-soft:#F7E1DE}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#0F1522;--panel:#172033;--ink:#E8ECF3;--muted:#9AA5B8;--line:#2A3550;--blue:#8AA6F5;--red:#F08A80;--red-soft:#3A2023}
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{min-height:100vh;min-height:100dvh;background:var(--bg);color:var(--ink);font-family:"Schibsted Grotesk",system-ui,-apple-system,sans-serif;display:flex;align-items:center;justify-content:center;padding:24px}
+.card{width:min(420px,100%);margin:0 auto;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:28px 26px}
+.kicker{font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+h1{font-size:26px;line-height:1.15;letter-spacing:-.02em;margin:8px 0 10px;font-weight:800}
+p{color:var(--muted);margin:0 0 18px;font-family:Newsreader,Georgia,serif;font-size:17px}
+label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
+.field{position:relative}
+input{width:100%;font:inherit;font-size:16px;padding:12px 46px 12px 14px;border:1px solid var(--line);border-radius:10px;background:transparent;color:var(--ink)}
+input:focus{outline:2px solid var(--blue);outline-offset:1px}
+.eye{position:absolute;top:0;right:0;bottom:0;width:44px;border:0;background:transparent;color:var(--muted);cursor:pointer;display:grid;place-items:center;padding:0;border-radius:10px}
+.eye:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
+.eye svg{display:block}
+.eye .off{display:none}
+.eye.on .open{display:none}
+.eye.on .off{display:block}
+button.submit{margin-top:12px;width:100%;font:inherit;font-weight:700;font-size:15px;border:0;border-radius:10px;padding:12px 14px;background:var(--ink);color:var(--bg);cursor:pointer}
+.err{display:none;margin-top:12px;padding:10px 12px;border-radius:8px;background:var(--red-soft);color:var(--red);font-size:14px;font-weight:600;text-align:center}
+</style>
+</head>
+<body>
+<form class="card" id="g" autocomplete="off">
+  <div class="kicker">WMG CRM Migration</div>
+  <h1>Test dashboard</h1>
+  <p>Enter the shared password to open the test page.</p>
+  <label for="p">Password</label>
+  <div class="field">
+    <input id="p" name="password" type="password" required autofocus autocomplete="new-password">
+    <button type="button" class="eye" id="eye" aria-label="Show password" aria-pressed="false">
+      <svg class="open" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+      <svg class="off" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"/><path d="M10.6 6.2A10.7 10.7 0 0 1 12 6c6.5 0 10 6 10 6a18.2 18.2 0 0 1-3.2 3.8"/><path d="M6.1 6.1C3.8 7.8 2 12 2 12s3.5 6 10 6c1.6 0 3-.4 4.2-1"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>
+    </button>
+  </div>
+  <button class="submit" type="submit">Open dashboard</button>
+  <div class="err" id="e">Wrong password. Try again.</div>
+</form>
+<script>
+const SALT="oHgpaM9TD2OElJCRNiOadg==", IV="+BjYk8u/srIXefXd", DATA="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";
+try{sessionStorage.removeItem("wmg-dash");sessionStorage.removeItem("wmg-capacity");sessionStorage.removeItem("wmg-test");}catch(e){}
+function b64(s){return Uint8Array.from(atob(s),c=>c.charCodeAt(0))}
+async function unlock(password){
+  const enc=new TextEncoder();
+  const base=await crypto.subtle.importKey("raw",enc.encode(password),{name:"PBKDF2"},false,["deriveKey"]);
+  const key=await crypto.subtle.deriveKey({name:"PBKDF2",salt:b64(SALT),iterations:200000,hash:"SHA-256"},base,{name:"AES-GCM",length:256},false,["decrypt"]);
+  const buf=b64(DATA);
+  const plain=await crypto.subtle.decrypt({name:"AES-GCM",iv:b64(IV)},key,buf);
+  return new TextDecoder().decode(plain);
+}
+const form=document.getElementById("g"), err=document.getElementById("e"), input=document.getElementById("p"), eye=document.getElementById("eye");
+eye.addEventListener("click",()=>{
+  const show=input.type==="password";
+  input.type=show?"text":"password";
+  eye.classList.toggle("on", show);
+  eye.setAttribute("aria-pressed", show?"true":"false");
+  eye.setAttribute("aria-label", show?"Hide password":"Show password");
+  input.focus();
+});
+form.addEventListener("submit", async ev=>{
+  ev.preventDefault();
+  err.style.display="none";
+  try{
+    const html=await unlock(input.value);
+    document.open(); document.write(html); document.close();
+  }catch(e){
+    err.style.display="block";
+    input.select();
+  }
+});
+</script>
+</body>
+</html>
